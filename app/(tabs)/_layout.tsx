@@ -1,37 +1,57 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { View, Text, StyleSheet } from "react-native";
+import React from "react";
+import { Tabs } from "expo-router"; // Assuming you're using expo-router
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
+import { Colors } from "@/constants/Colors";
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+const TabLayout = () => {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
+    <Tabs screenOptions={{
+      headerShown: false,
+      tabBarStyle: styles.tabBar, // Apply custom styles here
+    }}>
       <Tabs.Screen
-        name="index"
+        name="home"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+          tabBarLabel: "Home",
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="home" size={24} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="explore"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+          tabBarLabel: "Explore",
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="travel-explore" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          tabBarLabel: "Profile",
+          tabBarIcon: ({ color }) => (
+            <AntDesign name="user" size={24} color={color} />
           ),
         }}
       />
     </Tabs>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  tabBar: {
+    // Style the entire tab bar container here
+    backgroundColor: '#fff', // Example background color
+    borderTopWidth: 1, // Add a border
+    padding: 10, // Add padding for better spacing
+    shadowColor: "#ccc", // Add a subtle shadow
+    shadowOffset: { width: 0, height: 2 }, // Adjust shadow offset
+    shadowOpacity: 0.2, // Control shadow intensity
+    shadowRadius: 4, // Define shadow blur radius
+  },
+});
+
+export default TabLayout;
