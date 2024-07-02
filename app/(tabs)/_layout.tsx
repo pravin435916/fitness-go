@@ -2,8 +2,8 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { Tabs } from "expo-router"; // Assuming you're using expo-router
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
-import { Colors } from "@/constants/Colors";
-
+import { Entypo } from '@expo/vector-icons';
+import { FontAwesome6 } from '@expo/vector-icons';
 const TabLayout = () => {
   return (
     <Tabs screenOptions={{
@@ -11,11 +11,11 @@ const TabLayout = () => {
       tabBarStyle: styles.tabBar, // Apply custom styles here
     }}>
       <Tabs.Screen
-        name="home"
+        name="workouts"
         options={{
-          tabBarLabel: "Home",
+          tabBarLabel: "Workouts",
           tabBarIcon: ({ color }) => (
-            <AntDesign name="home" size={24} color={color} />
+            <FontAwesome6 name="dumbbell" size={24} color={color} />
           ),
         }}
       />
@@ -37,6 +37,15 @@ const TabLayout = () => {
           ),
         }}
       />
+      <Tabs.Screen
+        name="planner"
+        options={{
+          tabBarLabel: "Planner",
+          tabBarIcon: ({ color }) => (
+            <Entypo name="back-in-time" size={24} color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 };
@@ -45,6 +54,7 @@ const styles = StyleSheet.create({
   tabBar: {
     // Style the entire tab bar container here
     backgroundColor: '#fff', // Example background color
+    paddingHorizontal:24,
     borderTopWidth: 1, // Add a border
     padding: 10, // Add padding for better spacing
     shadowColor: "#ccc", // Add a subtle shadow

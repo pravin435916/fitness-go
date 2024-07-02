@@ -24,16 +24,17 @@ const CLERK_PUBLISHABLE_KEY =
   "pk_test_ZGl2aW5lLWdsb3d3b3JtLTEuY2xlcmsuYWNjb3VudHMuZGV2JA";
 export default function RootLayout() {
   return (
-    <ClerkProvider tokenCache={tokenCache} publishableKey={CLERK_PUBLISHABLE_KEY}>
-      <SignedIn>
-        <Text>Hello</Text>
-      </SignedIn>
-      <SignedOut>
+    
+    // <ClerkProvider tokenCache={tokenCache} publishableKey={CLERK_PUBLISHABLE_KEY}>
+      // <SignedIn>
+      //   <Text>Hello</Text>
+      // </SignedIn>
+      // <SignedOut>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack>
-        {/* <LoginScreen /> */}
-      </SignedOut>
-    </ClerkProvider>
-  );
-}
+      // </SignedOut>
+      // </ClerkProvider>
+    );
+  }
+  {/* <LoginScreen /> */}

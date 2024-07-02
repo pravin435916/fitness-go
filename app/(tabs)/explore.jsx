@@ -1,58 +1,85 @@
 import React from 'react';
 import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, ScrollView, FlatList, Button, TextInput, Image } from 'react-native';
-import tw from 'twrnc'
+import tw from 'twrnc';
 import SearchFood from '../../components/SearchFood';
-import { Link } from 'expo-router';
-const explore = () => {
-  const main = require('../../assets/images/gym1.jpg')
-  const girl1 = require('../../assets/images/back.jpg')
-  const gymai = require('../../assets/images/gymai.jpg')
-  const exerciseImages = [gymai, girl1, main]
+import { FontAwesome6 } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+const Explore = () => {
+  const main = require('../../assets/images/gym1.jpg');
+  const girl1 = require('../../assets/images/back.jpg');
+  const gymai = require('../../assets/images/gymai.jpg');
+  const exerciseImages = [{img : gymai,title : "chest"},{img : main,title : "main"},{img : girl1,title : "gri1"}];
+  const router = useRouter()
   return (
     <>
       <View style={tw`flex-1 bg-white`}>
         <ScrollView contentContainerStyle={styles.container}>
-
           {/* Explore Section */}
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Ready To <Text style={tw`text-red-400`}>Workout</Text></Text>
-            {/* Replace with your explore content */}
-            <FlatList
-              data={exerciseImages}
-              horizontal={true} // Make scrolling horizontal
-              showsHorizontalScrollIndicator={false} // Hide scroll indicator
-              keyExtractor={(item) => item}
-              renderItem={({ item }) => (
+            <View style={tw`flex flex-row mt-4 mb-2 items-center gap-2`}>
+              <Text style={tw`text-3xl font-bold`}>Ready To <Text style={tw`text-red-400`}>Workout</Text></Text>
+              <FontAwesome6 name="dumbbell" size={24} color="black" />
+            </View>
                 <TouchableOpacity style={styles.card}>
                   <ImageBackground
-                    source={item}
+                    source={gymai}
                     style={styles.cardImage}
                     imageStyle={styles.cardImage}
                   >
-                    <Text style={styles.cardText}>Pump Again </Text>
+                    <Text style={styles.cardText}>Pump Again</Text>
                   </ImageBackground>
                 </TouchableOpacity>
-              )}
-            />
-            {/* Repeat TouchableOpacity for each item */}
           </View>
 
           {/* Featured Section */}
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Featured Workouts</Text>
-            {/* <Link href={'/home'}> */}
-              <TouchableOpacity style={styles.card}>
-                <ImageBackground
-                  source={girl1}
-                  style={styles.cardImage2}
-                  imageStyle={styles.cardImage2}
-                >
-                  <Text style={styles.cardText}>Back</Text>
-                </ImageBackground>
-              </TouchableOpacity>
-            {/* </Link> */}
+            <Text style={tw`text-3xl font-bold`}>Featured Workouts</Text>
+            <TouchableOpacity style={styles.card}>
+              <ImageBackground
+                source={girl1}
+                style={styles.cardImage2}
+                imageStyle={styles.cardImage2}
+              >
+                <Text style={styles.cardText} onPress={()=> router.push('workouts')}>Start Your Workout</Text>
+              </ImageBackground>
+            </TouchableOpacity>
           </View>
-          {/* food  */}
+
+          {/* Popular Exercises Section */}
+          <View style={styles.section}>
+            <Text style={tw`text-3xl font-bold`}>Popular Exercises</Text>
+            <FlatList
+              data={exerciseImages}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={(item) => item}
+              renderItem={({ item }) => (
+                <TouchableOpacity style={styles.card}>
+                  <ImageBackground
+                    source={item.img}
+                    style={styles.cardImage}
+                    imageStyle={styles.cardImage}
+                  >
+                    <Text style={styles.cardText}>{item.title}</Text>
+                  </ImageBackground>
+                </TouchableOpacity>
+              )}
+            />
+          </View>
+
+          {/* Nutrition Tips Section */}
+          <View style={styles.section}>
+            <Text style={tw`text-3xl font-bold`}>Nutrition Tips</Text>
+            <View style={styles.tipCard}>
+              <Text style={styles.tipText}>Stay hydrated and maintain a balanced diet.</Text>
+            </View>
+            <View style={styles.tipCard}>
+              <Text style={styles.tipText}>Incorporate plenty of fruits and vegetables.</Text>
+            </View>
+            <View style={styles.tipCard}>
+              <Text style={styles.tipText}>Incorporate plenty of fruits and vegetables.</Text>
+            </View>
+          </View>
         </ScrollView>
         <SearchFood />
       </View>
@@ -62,26 +89,12 @@ const explore = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     backgroundColor: '#fff',
     paddingVertical: 10,
     paddingHorizontal: 10,
   },
-  header: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  headerText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
   section: {
-    marginBottom: 20,
-  },
-  sectionTitle: {
-    fontSize: 40,
-    fontWeight: 'bold',
-    margin: 10,
+    marginBottom: 10,
   },
   card: {
     marginBottom: 10,
@@ -90,15 +103,14 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   cardImage: {
-    width: 350,
-    height: 200, // Adjust as needed
+    width: 400,
+    height: 200,
     marginRight: 8,
-    // justifyContent: 'flex-end',
     borderRadius: 10,
     padding: 10,
   },
   cardImage2: {
-    height: 180, // Adjust as needed
+    height: 180,
     justifyContent: 'flex-end',
     padding: 10,
   },
@@ -107,6 +119,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  tipCard: {
+    backgroundColor: '#f9f9f9',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  tipText: {
+    fontSize: 16,
+  },
+  navigationSection: {
+    marginTop: 20,
+  },
 });
 
-export default explore;
+export default Explore;

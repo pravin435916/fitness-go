@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet, TextInput, ImageBackground } from 'react-native';
 import axios from 'axios';
-import tw from 'twrnc';
-
+import tw, { style } from 'twrnc';
+import { MaterialIcons } from '@expo/vector-icons';
 const exerciseCategories = ['Chest', 'Biceps', 'Legs', 'Back', 'Shoulder','neck','lower arms','lower legs'];
-
-const Home = () => {
+const gymai = require('../../assets/images/gymai.jpg');
+const Workouts = () => {
   const [exercises, setExercises] = useState([]);
   const [filteredExercises, setFilteredExercises] = useState([]);
   const [error, setError] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null); // Null initially to show the categories list
   const [searchText, setSearchText] = useState('');
-
+  
   useEffect(() => {
     if (selectedCategory) {
       const fetchData = async () => {
@@ -27,6 +27,7 @@ const Home = () => {
         try {
           const response = await axios.request(options);
           setExercises(response.data);
+          // console.log(response.data);
           setFilteredExercises(response.data);
         } catch (err) {
           setError(err);
@@ -128,10 +129,10 @@ const Home = () => {
         </>
       ) : (
         <>
-          <TouchableOpacity style={tw`p-4 bg-gray-800  rounded-lg my-2`} onPress={() => setSelectedCategory(null)}>
-            <Text style={tw`text-2xl text-white font-bold`}>Back to Categories</Text>
+          <TouchableOpacity style={tw`p-4 w-36 rounded-lg my-2`} onPress={() => setSelectedCategory(null)}>
+          <MaterialIcons name="arrow-back-ios" size={24} color="black" />
           </TouchableOpacity>
-          <Text style={tw`text-3xl font-bold py-2`}>{selectedCategory} Exercises</Text>
+          <Text style={tw`text-3xl font-bold py-2 uppercase text-red-500`}>{selectedCategory} Exercises</Text>
           <TextInput
             style={tw`p-2 bg-white rounded-lg mb-4`}
             placeholder="Search exercises..."
@@ -177,4 +178,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Home;
+export default Workouts;
